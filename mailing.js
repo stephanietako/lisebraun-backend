@@ -7,7 +7,7 @@ const sendEmail = (to, subject, text) => {
     port: process.env.PORT_SMTP,
     auth: {
       user: process.env.TRANSP_USER,
-      pass: process.env.SMTP_KEY_BREVO,
+      pass: process.env.SMTP_KEY_LB_ART,
     },
   });
 
