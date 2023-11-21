@@ -35,6 +35,7 @@ const setUpBrevo = () => {
 
 // Fonction pour stocker des datas de contact d'utilisateur dans Brevo
 const sendEmailviaBrevo = async (toEmail, listId, res) => {
+  console.log(toEmail, listId, res);
   const createContact = {
     email: toEmail,
     listIds: [listId],
@@ -54,9 +55,10 @@ const sendEmailviaBrevo = async (toEmail, listId, res) => {
 /// Fonction pour stocker des datas de contact des utilisateurs avec ses attributs dans Brevo
 const sendContactviaBrevo = async (toEmail, form, listId, res) => {
   try {
+    console.log(form.firstname, form.lastname, form.email, form.message);
     const attributesToAdd = [
-      { name: "PRENOM", value: form.firstname },
-      { name: "NOM", value: form.lastname },
+      { name: "FIRSTNAME", value: form.firstname },
+      { name: "LASTNAME", value: form.lastname },
       { name: "EMAIL", value: form.email },
       { name: "MESSAGE", value: form.message },
     ];
@@ -75,12 +77,14 @@ const sendContactviaBrevo = async (toEmail, form, listId, res) => {
       updateEnabled: false,
       attributes: attributesObject,
     };
-
+    console.log(toEmail);
     const data = await apiInstance.createContact(createContact);
     res.json(data); // Réponse au client ici
   } catch (error) {
     console.error(error);
-    res.status(500).json({ success: false, error: "An error occurred." });
+    res
+      .status(500)
+      .json({ success: false, error: "An error occurred to create contact." });
   }
 };
 
